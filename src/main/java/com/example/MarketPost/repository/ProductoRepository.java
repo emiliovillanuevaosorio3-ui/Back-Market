@@ -12,7 +12,6 @@ public interface ProductoRepository extends Repository<Producto, Long> {
     @Query(value = """
         SELECT new com.example.MarketPost.dto.SummaryProducto(
             productoId AS id,
-            rutaImagen,
             descripcion,
             precio,
             estado
@@ -26,7 +25,6 @@ public interface ProductoRepository extends Repository<Producto, Long> {
     @Query(value = """
         SELECT new com.example.MarketPost.dto.SummaryProducto(
             productoId AS id,
-            rutaImagen,
             descripcion,
             precio,
             estado
