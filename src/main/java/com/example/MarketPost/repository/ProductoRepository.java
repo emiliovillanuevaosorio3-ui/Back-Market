@@ -37,7 +37,6 @@ public interface ProductoRepository extends Repository<Producto, Long> {
     """)
     List<SummaryProducto> findByCategoriaId(Long categoriaId);
 
-
     @Modifying
     @Transactional
     @Query("DELETE FROM Producto p WHERE p.productoId = :id")

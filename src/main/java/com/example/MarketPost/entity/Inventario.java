@@ -16,6 +16,9 @@ import java.math.BigDecimal;
 @Entity
 @EntityListeners(value = AuditingEntityListener.class)
 public class Inventario {
+    @Id
+    private Long id;
+
     private Integer cantidadActual;
     private Integer ultimaCantidad;
     private Integer nivelCritico;
@@ -26,8 +29,8 @@ public class Inventario {
     @Embedded
     private Audit auditoria;
 
-    @Id
     @OneToOne
+    @JoinColumn(name = "productoId")
     @MapsId
     private Producto producto;
 }

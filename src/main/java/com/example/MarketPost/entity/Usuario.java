@@ -28,8 +28,10 @@ public class Usuario {
     private Audit auditoria;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "rolId")
     private Rol rol;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "paisId")
     private Pais pais;
 }
