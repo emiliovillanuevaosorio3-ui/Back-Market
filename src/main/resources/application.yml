@@ -5,3 +5,4 @@ spring:
     url: ${BD_URL}
     username: ${MKET_USR}
     password: ${MKET_PWD}
+    driver-class-name: com.mysql.cj.jdbc.Driver

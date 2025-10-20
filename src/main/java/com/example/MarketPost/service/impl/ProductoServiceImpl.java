@@ -23,4 +23,11 @@ public class ProductoServiceImpl implements ProductoService {
     public List<SummaryProducto> findByCategoriaId(Long id) {
         return productoRepository.findByCategoriaId(id);
     }
+
+    @Override
+    public boolean deleteById(Long id) {
+        int filas = productoRepository.deleteByProductoId(id);
+        return filas > 0;
+    }
+
 }
