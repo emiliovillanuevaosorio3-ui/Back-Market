@@ -7,4 +7,5 @@ import java.util.List;
 public interface ProductoService {
     List<SummaryProducto> searchByDescripcionOrCodigoBarra(String descripcionOrCodigoBarra);
     List<SummaryProducto> findByCategoriaId(Long id);
+    boolean deleteById(Long id);
 }

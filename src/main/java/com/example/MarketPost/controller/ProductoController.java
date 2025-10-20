@@ -3,10 +3,7 @@ package com.example.MarketPost.controller;
 import com.example.MarketPost.service.ProductoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @AllArgsConstructor
@@ -21,5 +18,14 @@ public class ProductoController {
         return ResponseEntity.ok(productoService.searchByDescripcionOrCodigoBarra(descripcionOrCodigoBarra));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable Long id) {
+        boolean eliminado = productoService.deleteById(id);
+        if (eliminado) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 }

@@ -2,8 +2,11 @@ package com.example.MarketPost.repository;
 
 import com.example.MarketPost.dto.SummaryProducto;
 import com.example.MarketPost.entity.Producto;
+
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -34,4 +37,9 @@ public interface ProductoRepository extends Repository<Producto, Long> {
     """)
     List<SummaryProducto> findByCategoriaId(Long categoriaId);
 
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Producto p WHERE p.productoId = :id")
+    int deleteByProductoId(Long id);
 }
