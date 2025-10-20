@@ -31,5 +31,6 @@ public class Producto {
     private Audit auditoria;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "categoriaId")
     private Categoria categoria;
 }

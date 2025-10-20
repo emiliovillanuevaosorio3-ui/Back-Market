@@ -6,3 +6,11 @@ spring:
     username: ${MKET_USR}
     password: ${MKET_PWD}
     driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /doc/swagger-ui.html
