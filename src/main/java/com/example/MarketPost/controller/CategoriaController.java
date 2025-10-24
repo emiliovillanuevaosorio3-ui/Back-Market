@@ -1,16 +1,16 @@
 package com.example.MarketPost.controller;
 
+import com.example.MarketPost.dto.CategoriaRequest;
+import com.example.MarketPost.service.CategoriaService;
 import com.example.MarketPost.service.ProductoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Categoria Controller")
 @RestController
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CategoriaController {
 
     private final ProductoService productoService;
+    private final CategoriaService categoriaService;
 
     @Operation(summary = "Obtener los productos de una categoria")
     @GetMapping(value = "/{categoriaId}/productos")
@@ -29,5 +30,12 @@ public class CategoriaController {
     })
     public ResponseEntity<?> getProductosByCategoriaId(@PathVariable Long categoriaId) {
         return ResponseEntity.ok(productoService.findByCategoriaId(categoriaId));
+    }
+
+    @PostMapping
+    public ResponseEntity<?> save(@RequestBody CategoriaRequest request) {
+        return ResponseEntity
+            .status(HttpStatus.CREATED)
+            .body(categoriaService.save(request));
     }
 }

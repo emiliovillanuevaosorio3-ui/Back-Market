@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,6 +58,8 @@ public class ProductoController {
         @ApiResponse(responseCode = "500", description = "Error en el servidor")
     })
     public ResponseEntity<?> save(@RequestBody ProductoRequest request) {
-        return ResponseEntity.ok(productoService.save(request));
+        return ResponseEntity
+            .status(HttpStatus.CREATED)
+            .body(productoService.save(request));
     }
 }
