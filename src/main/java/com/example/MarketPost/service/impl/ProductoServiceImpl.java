@@ -17,8 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.example.MarketPost.util.Constant.*;
-
 @Service
 @AllArgsConstructor
 public class ProductoServiceImpl implements ProductoService {
@@ -29,42 +27,45 @@ public class ProductoServiceImpl implements ProductoService {
     private final InventarioService inventarioService;
 
     @Override
-    public ApiResponse<List<SummaryProducto>> findByCategoriaId(Long categoriaId) {
-        categoriaService.existeCategoria(categoriaId);
+    public ApiResponse<List<SummaryProducto>> findByCategoriaId(long categoriaId) {
+        categoriaService.existsById(categoriaId);
         List<SummaryProducto> productos = productoRepository.findByCategoriaId(categoriaId);
-        return ResponseFactory.ok(DATA_OK, productos);
+        return ResponseFactory.ok(productos);
     }
 
     @Override
-    public ApiResponse<ProductoRequest> getDetalleProductoByProductoId(Long productoId) {
+    public ApiResponse<ProductoRequest> getDetalleById(long id) {
         ProductoRequest detalleProducto = productoRepository
-            .getDetalleByProductoId(productoId)
-            .orElseThrow(() -> new ResourceNotFoundException(Producto.class.getSimpleName(), productoId));
+            .getDetalleByProductoId(id)
+            .orElseThrow(() -> new ResourceNotFoundException(Producto.class.getSimpleName(), id));
 
-        return ResponseFactory.ok(DATA_OK, detalleProducto);
+        return ResponseFactory.ok(detalleProducto);
     }
 
     @Transactional
     @Override
-    public ApiResponse<Long> saveProducto(ProductoRequest request) {
+    public ApiResponse<Long> save(ProductoRequest request) {
         Producto productoEntity = productoMapper.mapToEntity(request);
         Producto newProducto = productoRepository.save(productoEntity);
         inventarioService.save(newProducto);
-        return ResponseFactory.ok(PRODUCTO_CREADO, newProducto.getProductoId());
+        return ResponseFactory.ok(newProducto.getProductoId());
     }
 
     @Transactional
     @Override
-    public ApiResponse<Long> deleteById(Long id) {
+    public void deleteById(long id) {
+        if (!productoRepository.existsByProductoId(id)) {
+            throw new ResourceNotFoundException(Producto.class.getSimpleName(), id);
+        }
+
         inventarioService.deleteByProductoId(id);
         productoRepository.deleteByProductoId(id);
-        return ResponseFactory.ok(PRODUCTO_ELIMINADO, id);
     }
 
-
     @Override
-    public List<SummaryProducto> searchByDescripcionOrCodigoBarra(String descripcionOrCodigoBarra) {
-        return productoRepository.searchByDescripcionOrCodigoBarra(descripcionOrCodigoBarra);
+    public ApiResponse<List<SummaryProducto>> searchByDescripcionOrCodigoBarra(String descripcionOrCodigoBarra) {
+        List<SummaryProducto> productos = productoRepository.searchByDescripcionOrCodigoBarra(descripcionOrCodigoBarra);
+        return ResponseFactory.ok(productos);
     }
 
 }

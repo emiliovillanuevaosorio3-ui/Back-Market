@@ -55,6 +55,6 @@ public interface ProductoRepository extends Repository<Producto, Long> {
     Optional<ProductoRequest> getDetalleByProductoId(Long productoId);
 
     Producto save(Producto producto);
-
     void deleteByProductoId(Long id);
+    boolean existsByProductoId(Long id);
 }

@@ -14,7 +14,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     private final CategoriaRepository categoriaRepository;
 
     @Override
-    public void existeCategoria(long id) {
+    public void existsById(long id) {
         if (!categoriaRepository.existsByCategoriaId(id)) {
             throw new ResourceNotFoundException(Categoria.class.getSimpleName(), id);
         }

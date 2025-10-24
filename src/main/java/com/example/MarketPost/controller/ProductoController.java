@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +36,7 @@ public class ProductoController {
         @ApiResponse(responseCode = "500", description = "Error en el servidor")
     })
     public ResponseEntity<?> getDetalleProductoByProductoId(@PathVariable Long productoId) {
-        return ResponseEntity.ok(productoService.getDetalleProductoByProductoId(productoId));
+        return ResponseEntity.ok(productoService.getDetalleById(productoId));
     }
 
     @Operation(summary = "Eliminar un producto por su ID")
@@ -47,8 +46,8 @@ public class ProductoController {
         @ApiResponse(responseCode = "500", description = "Error en el servidor")
     })
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.NO_CONTENT)
-                .body(productoService.deleteById(id));
+        productoService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
     @Operation(summary = "Registrar producto")
@@ -58,6 +57,6 @@ public class ProductoController {
         @ApiResponse(responseCode = "500", description = "Error en el servidor")
     })
     public ResponseEntity<?> save(@RequestBody ProductoRequest request) {
-        return ResponseEntity.ok(productoService.saveProducto(request));
+        return ResponseEntity.ok(productoService.save(request));
     }
 }
