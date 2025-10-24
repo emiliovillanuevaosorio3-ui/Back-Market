@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 
@@ -14,7 +13,6 @@ import java.math.BigDecimal;
 @ToString
 @Entity
 @Table(name = "productos")
-@EntityListeners(AuditingEntityListener.class)
 public class Producto extends Audit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
