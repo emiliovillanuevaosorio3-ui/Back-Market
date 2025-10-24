@@ -1,11 +1,13 @@
 package com.example.MarketPost.controller;
 
+import com.example.MarketPost.dto.ProductoRequest;
 import com.example.MarketPost.service.ProductoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,22 +32,32 @@ public class ProductoController {
     @Operation(summary = "Obtener un producto específico por su Id")
     @GetMapping(value = "/{productoId}")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "404", description = "Not Found"),
-            @ApiResponse(responseCode = "500", description = "Error en el servidor")
+        @ApiResponse(responseCode = "200", description = "OK"),
+        @ApiResponse(responseCode = "404", description = "Not Found"),
+        @ApiResponse(responseCode = "500", description = "Error en el servidor")
     })
     public ResponseEntity<?> getDetalleProductoByProductoId(@PathVariable Long productoId) {
         return ResponseEntity.ok(productoService.getDetalleProductoByProductoId(productoId));
     }
 
+    @Operation(summary = "Eliminar un producto por su ID")
     @DeleteMapping("/{id}")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "204", description = "OK"),
+        @ApiResponse(responseCode = "500", description = "Error en el servidor")
+    })
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
-        boolean eliminado = productoService.deleteById(id);
-        if (eliminado) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                .body(productoService.deleteById(id));
     }
 
+    @Operation(summary = "Registrar producto")
+    @PostMapping
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "OK"),
+        @ApiResponse(responseCode = "500", description = "Error en el servidor")
+    })
+    public ResponseEntity<?> save(@RequestBody ProductoRequest request) {
+        return ResponseEntity.ok(productoService.saveProducto(request));
+    }
 }
