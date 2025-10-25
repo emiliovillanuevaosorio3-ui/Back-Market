@@ -1,6 +1,7 @@
 package com.example.MarketPost.controller;
 
 import com.example.MarketPost.dto.ProductoRequest;
+import com.example.MarketPost.service.InventarioService;
 import com.example.MarketPost.service.ProductoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProductoController {
 
     private final ProductoService productoService;
+    private final InventarioService inventarioService;
 
     @Operation(summary = "Buscar productos por el código de barra o descripción.")
     @GetMapping(value = "/search")
@@ -62,4 +64,11 @@ public class ProductoController {
             .status(HttpStatus.CREATED)
             .body(productoService.save(request));
     }
+
+    @GetMapping(value = "/{id}/inventario")
+    public ResponseEntity<?> getInventarioByProductoId(@PathVariable Long id) {
+        var response = inventarioService.getInventarioByProductoId(id);
+        return ResponseEntity.ok(response);
+    }
+
 }
