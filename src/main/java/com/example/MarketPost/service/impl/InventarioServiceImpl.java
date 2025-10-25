@@ -21,25 +21,6 @@ public class InventarioServiceImpl implements InventarioService {
     private final ProductoRepository productoRepository;
 
     @Override
-    public void save(Producto producto) {
-        Inventario inventario = new Inventario();
-
-        inventario.setGestionActiva(false);
-        inventario.setAlertaCritica(false);
-        inventario.setNivelCritico(50);
-        inventario.setUltimaCantidad(0);
-        inventario.setCantidadActual(0);
-        inventario.setProducto(producto);
-
-        inventarioRepository.save(inventario);
-    }
-
-    @Override
-    public void deleteByProductoId(Long productoId) {
-        inventarioRepository.deleteByProductoId(productoId);
-    }
-
-    @Override
     public ApiResponse<ProductoInventarioRequest> getInventarioByProductoId(Long productoId) {
         var inventario = inventarioRepository
             .getInventarioByProductoId(productoId)
@@ -52,7 +33,7 @@ public class InventarioServiceImpl implements InventarioService {
     @Override
     public ApiResponse<Void> updateInventarioByProductoId(Long productoId, ProductoInventarioRequest request) {
 
-        Producto producto = productoRepository
+        var producto = productoRepository
                 .findByProductoId(productoId)
                 .orElseThrow(() -> new ResourceNotFoundException(Producto.class.getSimpleName(), productoId));
 
@@ -60,7 +41,7 @@ public class InventarioServiceImpl implements InventarioService {
         producto.setCodigoBarra(request.codigoBarras());
         producto.setPrecioCompra(request.precioCompra());
 
-        Inventario inventario = inventarioRepository
+        var inventario = inventarioRepository
                 .findByProductoId(productoId)
                 .orElseThrow(() -> new ResourceNotFoundException(Inventario.class.getSimpleName(), productoId));
 
