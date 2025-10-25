@@ -27,14 +27,14 @@ public class ProductoServiceImpl implements ProductoService {
     private final InventarioService inventarioService;
 
     @Override
-    public ApiResponse<List<SummaryProducto>> findByCategoriaId(long categoriaId) {
+    public ApiResponse<List<SummaryProducto>> findByCategoriaId(Long categoriaId) {
         categoriaService.existsById(categoriaId);
         List<SummaryProducto> productos = productoRepository.findByCategoriaId(categoriaId);
         return ResponseFactory.ok(productos);
     }
 
     @Override
-    public ApiResponse<ProductoRequest> getDetalleById(long id) {
+    public ApiResponse<ProductoRequest> getDetalleById(Long id) {
         ProductoRequest detalleProducto = productoRepository
             .getDetalleByProductoId(id)
             .orElseThrow(() -> new ResourceNotFoundException(Producto.class.getSimpleName(), id));
@@ -53,7 +53,7 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Transactional
     @Override
-    public void deleteById(long id) {
+    public void deleteById(Long id) {
         if (!productoRepository.existsByProductoId(id)) {
             throw new ResourceNotFoundException(Producto.class.getSimpleName(), id);
         }

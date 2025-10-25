@@ -8,4 +8,5 @@ public interface InventarioService {
     void save(Producto producto);
     void deleteByProductoId(Long productoId);
     ApiResponse<ProductoInventarioRequest> getInventarioByProductoId(Long productoId);
+    ApiResponse<Void> updateInventarioByProductoId(Long productoId, ProductoInventarioRequest request);
 }

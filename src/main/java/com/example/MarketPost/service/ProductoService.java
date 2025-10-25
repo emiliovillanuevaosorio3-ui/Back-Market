@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface ProductoService {
     ApiResponse<List<SummaryProducto>> searchByDescripcionOrCodigoBarra(String descripcionOrCodigoBarra);
-    ApiResponse<List<SummaryProducto>> findByCategoriaId(long categoriaId);
-    ApiResponse<ProductoRequest> getDetalleById(long id);
+    ApiResponse<List<SummaryProducto>> findByCategoriaId(Long categoriaId);
+    ApiResponse<ProductoRequest> getDetalleById(Long id);
     ApiResponse<Long> save(ProductoRequest request);
-    void deleteById(long id);
+    void deleteById(Long id);
 }
    

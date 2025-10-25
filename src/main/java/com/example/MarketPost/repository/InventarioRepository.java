@@ -10,9 +10,11 @@ import java.util.Optional;
 public interface InventarioRepository extends Repository<Inventario, Long> {
     void save(Inventario inventario);
     void deleteByProductoId(Long productoId);
+    Optional<Inventario> findByProductoId(Long productoId);
 
     @Query(value = """
         SELECT new com.example.MarketPost.dto.ProductoInventarioRequest(
+            i.productoId,
             p.nombre,
             p.codigoBarra,
             p.precioCompra,

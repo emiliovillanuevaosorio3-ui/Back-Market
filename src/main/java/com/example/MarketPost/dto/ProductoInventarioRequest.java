@@ -3,6 +3,7 @@ package com.example.MarketPost.dto;
 import java.math.BigDecimal;
 
 public record ProductoInventarioRequest(
+    Long productoId,
     String nombre,
     String codigoBarras,
     BigDecimal precioCompra,

@@ -1,5 +1,6 @@
 package com.example.MarketPost.controller;
 
+import com.example.MarketPost.dto.ProductoInventarioRequest;
 import com.example.MarketPost.dto.ProductoRequest;
 import com.example.MarketPost.service.InventarioService;
 import com.example.MarketPost.service.ProductoService;
@@ -68,6 +69,13 @@ public class ProductoController {
     @GetMapping(value = "/{id}/inventario")
     public ResponseEntity<?> getInventarioByProductoId(@PathVariable Long id) {
         var response = inventarioService.getInventarioByProductoId(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping(value = "/{id}/inventario")
+    public ResponseEntity<?> updateInventarioByProductoId(@PathVariable Long id,
+                                                          @RequestBody ProductoInventarioRequest request) {
+        var response = inventarioService.updateInventarioByProductoId(id, request);
         return ResponseEntity.ok(response);
     }
 
