@@ -1,7 +1,8 @@
 package com.example.MarketPost.service;
 
-import com.example.MarketPost.dto.SummaryProducto;
+import com.example.MarketPost.dto.CategoriaRequest;
+import com.example.MarketPost.response.ApiResponse;
 
-import java.util.List;
-
-public interface CategoriaService {}
+public interface CategoriaService {
+    ApiResponse<Long> save(CategoriaRequest request);
+}
