@@ -32,7 +32,14 @@ public class CategoriaController {
         return ResponseEntity.ok(productoService.findByCategoriaId(categoriaId));
     }
 
+    @Operation(summary = "Registrar categoría")
     @PostMapping
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "409", description = "Conflict"),
+        @ApiResponse(responseCode = "201", description = "Created"),
+        @ApiResponse(responseCode = "500", description = "Error server"),
+
+    })
     public ResponseEntity<?> save(@RequestBody CategoriaRequest request) {
         return ResponseEntity
             .status(HttpStatus.CREATED)
