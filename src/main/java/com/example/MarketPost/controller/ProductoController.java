@@ -66,13 +66,25 @@ public class ProductoController {
             .body(productoService.save(request));
     }
 
+    @Operation(summary = "Obtener el inventario de un producto")
     @GetMapping(value = "/{id}/inventario")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "OK"),
+        @ApiResponse(responseCode = "404", description = "Not Found"),
+        @ApiResponse(responseCode = "500", description = "Error en el servidor")
+    })
     public ResponseEntity<?> getInventarioByProductoId(@PathVariable Long id) {
         var response = inventarioService.getInventarioByProductoId(id);
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "Actualizar el inventario de un producto")
     @PutMapping(value = "/{id}/inventario")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "404", description = "Not Found"),
+            @ApiResponse(responseCode = "500", description = "Error en el servidor")
+    })
     public ResponseEntity<?> updateInventarioByProductoId(@PathVariable Long id,
                                                           @RequestBody ProductoInventarioRequest request) {
         var response = inventarioService.updateInventarioByProductoId(id, request);
