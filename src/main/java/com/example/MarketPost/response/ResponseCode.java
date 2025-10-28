@@ -8,7 +8,7 @@ import lombok.Getter;
 public enum ResponseCode {
     OK(0),
     NOT_FOUND(1),
-    CONFLICT(-1);
-
+    CONFLICT(-1),
+    BAD_REQUEST(2); // <--- agregado
     private final Integer codigo;
 }
