@@ -14,7 +14,7 @@ import lombok.ToString;
 public class Usuario extends Audit{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long usuarioId;
     private String nroDocumento;
     private String nombre;
     private String username;
